@@ -1,12 +1,15 @@
 FROM alpine:3.16
 
-RUN apk update
-RUN apk add nginx
-RUN ln -sf /dev/stdout /var/log/nginx/access.log
+RUN adduser -D -H -u 1000 -s /bin/bash www-data -G www-data
 
-COPY conf/nginx.conf /etc/nginx/conf.d
-COPY index.html /var/www/tutorial/intex.html
+RUN apk update
+RUN apk add nginx openssl
+
+COPY conf/*.conf /etc/nginx/
+
+COPY sslcert.crt /etc/ssl/
+COPY sslcert.key /etc/ssl/
 
 EXPOSE 443
 
-ENTRYPOINT nginx -g "daemon off; error_log /dev/stderr debug;"
+ENTRYPOINT nginx -g 'daemon off;'

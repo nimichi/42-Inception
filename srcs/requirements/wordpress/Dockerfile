@@ -1,10 +1,22 @@
-FROM alpine:3.16
+FROM alpine:3.15
 
-RUN apk update
-RUN apk add lighttpd php7-common php7-session php7-iconv php7-json php7-gd php7-curl php7-xml php7-mysqli php7-imap php7-cgi fcgi php7-pdo php7-pdo_mysql php7-soap php7-xmlrpc php7-posix php7-mcrypt php7-gettext php7-ldap php7-ctype php7-dom php7-simplexml
+RUN adduser -D -H -u 1000 -s /bin/bash www-data -G www-data
 
-COPY ./conf/www.conf /var/www/html/
+RUN apk update;
+RUN	apk add curl php7 php7-fpm php7-opcache php7-gd php7-mysqli php7-zlib php7-curl;
 
-ENTRYPOINT nginx -g "daemon off; error_log /dev/stderr debug;"
 
-RUN mkdir /run/php
+
+RUN curl -o wordpress.tar.gz -fL "https://wordpress.org/wordpress-6.0.1.tar.gz";
+RUN mkdir -p /var/www/html/;
+RUN	tar -xzf wordpress.tar.gz -C /var/www/html/;
+RUN	rm wordpress.tar.gz;
+
+COPY ./conf/wp-config.php /var/www/html/wordpress/
+COPY ./conf/www.conf /etc/php7/php-fpm.d/
+
+RUN chown www-data:www-data -R /var/www/html/wordpress
+RUN find /var/www/html/wordpress -type d -exec chmod 755 {} \;
+RUN find /var/www/html/wordpress -type f -exec chmod 644 {} \;
+
+CMD php-fpm7 -F -R
