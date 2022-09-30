@@ -60,7 +60,7 @@ define( 'DB_PASSWORD', $_ENV["MYSQL_PASSWORD"] );
 
 /** Database hostname */
 
-define( 'DB_HOST', mariadb );
+define( 'DB_HOST', localhost:3306 );
 
 
 
