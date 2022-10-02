@@ -48,4 +48,14 @@ networks:
 
 volumes:
   wordpress_vol:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /home/mnies/data/wordpress
   db_vol:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /home/mnies/data/db

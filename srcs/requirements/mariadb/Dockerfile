@@ -5,9 +5,7 @@ RUN apk upgrade
 RUN apk add --no-cache mariadb mariadb-client mariadb-server-utils
 
 RUN mkdir /run/mysqld
-RUN chown -R mysql:root /run/mysqld
-
-EXPOSE 3306
+RUN chown -R mysql:mysql /run/mysqld
 
 COPY ./tools/docker-entrypoint.sh /usr/local/bin/
 
