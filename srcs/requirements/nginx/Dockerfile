@@ -7,8 +7,8 @@ RUN apk add nginx openssl
 
 COPY conf/*.conf /etc/nginx/
 
-COPY sslcert.crt /etc/ssl/
-COPY sslcert.key /etc/ssl/
+COPY conf/sslcert.crt /etc/ssl/
+COPY conf/sslcert.key /etc/ssl/
 
 EXPOSE 443
 

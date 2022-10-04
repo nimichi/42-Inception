@@ -1,5 +1,6 @@
 NAME = inception
-all:
+all: inception
+inception:
 	docker-compose -f srcs/docker-compose.yml down
 	docker-compose -f srcs/docker-compose.yml up --build
 clean:
