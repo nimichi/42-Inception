@@ -1,1 +1,0 @@
-openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes -out /Users/mnies/Documents/Inception/sslcert.crt -keyout /Users/mnies/Documents/Inception/sslcert.key -subj /CN=mnies.42.fr
